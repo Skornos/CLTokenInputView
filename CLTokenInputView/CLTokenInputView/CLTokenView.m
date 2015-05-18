@@ -39,26 +39,26 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
             tintColor = self.tintColor;
         }
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(PADDING_X, PADDING_Y, 0, 0)];
-        self.label.font = [UIFont systemFontOfSize:17.0];
+        self.label.font = [UIFont systemFontOfSize:14.0];
         self.label.textColor = tintColor;
         self.label.backgroundColor = [UIColor clearColor];
         [self addSubview:self.label];
-
+        
         self.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
         self.selectedBackgroundView.backgroundColor = tintColor;
         self.selectedBackgroundView.layer.cornerRadius = 3.0;
         [self addSubview:self.selectedBackgroundView];
         self.selectedBackgroundView.hidden = YES;
-
+        
         self.selectedLabel = [[UILabel alloc] initWithFrame:CGRectMake(PADDING_X, PADDING_Y, 0, 0)];
         self.selectedLabel.font = self.label.font;
         self.selectedLabel.textColor = [UIColor whiteColor];
         self.selectedLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:self.selectedLabel];
         self.selectedLabel.hidden = YES;
-
+        
         self.displayText = token.displayText;
-
+        
         // Configure for the token, unselected shows "[displayText]," and selected is "[displayText]"
         NSString *labelString = [NSString stringWithFormat:UNSELECTED_LABEL_FORMAT, self.displayText];
         NSMutableAttributedString *attrString =
@@ -71,13 +71,13 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
                             range:tintRange];
         self.label.attributedText = attrString;
         self.selectedLabel.text = token.displayText;
-
+        
         // Listen for taps
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureRecognizer:)];
         [self addGestureRecognizer:tapRecognizer];
-
+        
         [self setNeedsLayout];
-
+        
     }
     return self;
 }
@@ -116,7 +116,7 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
     [attrString setAttributes:@{NSForegroundColorAttributeName : tintColor}
                         range:tintRange];
     self.label.attributedText = attrString;
-
+    
 }
 
 
@@ -141,7 +141,7 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
         return;
     }
     _selected = selected;
-
+    
     if (selected) {
         [self becomeFirstResponder];
     }
@@ -174,12 +174,12 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-
+    
     CGRect bounds = self.bounds;
-
+    
     self.backgroundView.frame = bounds;
     self.selectedBackgroundView.frame = bounds;
-
+    
     CGRect labelFrame = CGRectInset(bounds, PADDING_X, PADDING_Y);
     self.selectedLabel.frame = labelFrame;
     labelFrame.size.width += PADDING_X*2.0;
@@ -187,13 +187,13 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 
 #pragma mark - UIKeyInput protocol
